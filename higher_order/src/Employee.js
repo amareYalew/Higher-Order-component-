@@ -1,95 +1,106 @@
-// import React, { Component } from 'react'
+import React, { Component } from 'react'
+import Model from './Model';
+import EmailModel from './EmailModel';
 
-// export default class Employee extends Component {
+export default class Employee extends Component {
  
 
-//         constructor(props) {
+        constructor(props) {
       
-//           super(props);
+          super(props);
       
-//           this.state = {
+          this.state = {
       
-//             employees: []
+              employees: [],
+              showModal:false
       
-//           };
+          };
       
-//         }
+        }
       
-//         componentDidMount() {
+        componentDidMount() {
       
-//           fetch("https://jsonplaceholder.typicode.com/users")
+          fetch("https://jsonplaceholder.typicode.com/users")
       
-//             .then(res => res.json())
+            .then(res => res.json())
       
-//             .then(
+            .then(
       
-//               (result) => {
+              (result) => {
       
-//                 this.setState({
+                this.setState({
       
-//                   employees: result
+                  employees: result
       
-//                 });
+                });
       
-//               }
+              }
       
-//             );
+            );
       
-//         }
+    }
+    
+    editEmployee=()=>{
+        this.setState({showModal:!this.state.showModal});
+      }
       
-//         render() {
+        render() {
       
-//           return (
+          return (
       
-//             <div>
+            <div>
       
-//               <h2>Employees Data...</h2>
+              <h2>Employees Data...</h2>
       
-//               <table>
+              <table>
       
-//                 <thead>
+                <thead>
       
-//                   <tr>
+                  <tr>
       
-//                     <th>id</th>
+                    <th>id</th>
       
-//                     <th>Name</th>
+                    <th>Name of Employee </th>
       
-//                     <th>User Name</th>
+                    <th>User Name</th>
       
-//                     <th>email</th>
+                    <th>email</th>
       
-//                   </tr>
+                  </tr>
       
-//                 </thead>
+                </thead>
       
-//                 <tbody>
+                <tbody>
       
-//                 {this.state.employees.map(emp => (
+                {this.state.employees.map(emp => (
       
-//                   <tr key={emp.id}>
+                  <tr key={emp.id}>
       
-//                     <td>{emp.id}</td>
+                    <td>{emp.id}</td>
       
-//                     <td>{emp.name}</td>
+                    <td>{emp.name}</td>
       
-//                     <td>{emp.username}</td>
+                    <td>{emp.username}</td>
       
-//                     <td>{emp.email}</td>
+                        <td>{emp.email}</td>
+                        <td><button onClick={this.editEmployee}>Edit</button> </td>
+                        <Model open={this.state.showModal} close={this.editEmployee}>
+                            <EmailModel employees={emp}></EmailModel>
+                        </Model>
       
-//                     </tr>
+                    </tr>
       
-//                 ))}
+                ))}
       
-//                 </tbody>
+                </tbody>
       
-//               </table>
+              </table>
       
-//             </div>
+            </div>
       
-//             );
+            );
       
-//           }
+          }
       
-//       }
+      }
       
